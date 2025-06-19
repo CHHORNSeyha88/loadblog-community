@@ -3,9 +3,7 @@ import Form from 'next/form'
 import { Search } from 'lucide-react';
 import SearchFormReset from './SearchFormReset';
 
-const SearchComponentPage = () => {
-    
-    const query= 'query'
+const SearchComponentPage = ({query} : {query? : string}) => {
 
   return (
     <>
@@ -15,9 +13,14 @@ const SearchComponentPage = () => {
     defaultValue={query}
     placeholder='Seach StartUp!'
     className='flex-1 font-bold placeholder:font-semibold placeholder:text-black-100 w-full outline-none h-auto' />
+
    <div className='flex gap-2'>
     {query && <SearchFormReset/> }
-    <button type='submit' className='size-[50px] rounded-full bg-black flex justify-center items-center text-white !important'></button>
+
+    <button type='submit' className='size-[50px] rounded-full bg-black flex justify-center items-center text-white !important cursor-pointer'>
+     <Search/>
+    </button>
+
    </div>
     </Form>  
 

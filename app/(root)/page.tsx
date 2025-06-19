@@ -3,19 +3,22 @@ import Image from "next/image";
 import SearchComponentPage from "../components/SearchComponent";
 
 //method 1
-interface SearchParams{
-  query?:string
-}
-//method 2
+// interface SearchParams{
+//   query?:string
+// }
+// Wait for the Promise to resolve
+// const params = await props.searchParams; 
+// Get the query string (or undefined if not provided)
+// const query = params.query;
+// props:{searchParams:Promise<SearchParams>}
 
+
+//method 2
 // {searchParams}:{ searchParams : Promise<{query? : string}>}
 // const query = (await searchParams).query;
 
-export default async function Home (props:{searchParams:Promise<SearchParams>}) {
-  // Wait for the Promise to resolve
-  const params = await props.searchParams;
-   // Get the query string (or undefined if not provided)
-  const query = params.query;
+export default async function Home ({searchParams}:{ searchParams : Promise<{query? : string}>}) {
+  const query = (await searchParams).query;
   return (
    <>
    <section className="bg-primary min-h-[540px] pattern flex justify-center items-center flex-col py-10 px-6 ">
@@ -28,7 +31,7 @@ export default async function Home (props:{searchParams:Promise<SearchParams>}) 
           Submit Ideas, Vote on Pitches, and Get Noticed in Virtual
           Competitions.
         </p>
-        {/* <SearchComponentPage initialQuery={query}/> */}
+        <SearchComponentPage query={query} />
    </section>
 
    </>
