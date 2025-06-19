@@ -1,13 +1,6 @@
 import type {Config} from "tailwindcss";
 
 const config: Config = {
-    image :{
-domains: [
-    'i.ebayimg.com',
-    'example.com',
-    'another-site.com'
-  ],
-    },
     darkMode: "class",
     
     content: [
