@@ -65,6 +65,7 @@ export default async function Home ({searchParams}:{ searchParams : Promise<{que
       title:"Madara Uchiha"
     }
   ]
+  
   return (
    <>
    <section className="bg-primary min-h-[540px] pattern flex justify-center items-center flex-col py-10 px-6 ">
