@@ -4,11 +4,15 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { Author, Startup } from "@/sanity.types";
+
+export type StartUpCardConponentType = Omit<Startup,"author"> & {author? : Author}
+
 const StartUpCardConponent = ({ post }: { post: StartUpCardConponentType }) => {
   const {
     _createdAt,
-    views,
-    author: { id: authorID, name },
+    view,
+    author,
     title,
     category,
     image,
@@ -26,15 +30,15 @@ const StartUpCardConponent = ({ post }: { post: StartUpCardConponentType }) => {
           </p>
           <div className="flex gap-1.5">
             <EyeIcon className="size-6 text-red-500" />
-            <span className="text-[16px] text-black font-medium">{views}</span>
+            <span className="text-[16px] text-black font-medium">{view}</span>
           </div>
         </div>
 
         <div className="flex justify-between items-center mt-5 gap-5">
           <div className="flex-1">
-            <Link href={`/user/${authorID}`}>
+            <Link href={`/user/${author?._id}`}>
               <p className="text-[16px] text-black font-medium line-clamp-1">
-                {name}
+                {author?.name}
               </p>
             </Link>
             <Link href={`/startup/${_id}`}>
@@ -44,14 +48,14 @@ const StartUpCardConponent = ({ post }: { post: StartUpCardConponentType }) => {
             </Link>
           </div>
 
-          <Link href={`/user/${authorID}`}>
+          <Link href={`/user/${author?._id}`}>
             {/* profile */}
             <Image
-              src="https://placehold.co/48x48" // Note: Corrected "×" to "x" in dimensions
+              src={image} // Note: Corrected "×" to "x" in dimensions
               width={48}
               height={48}
               className="rounded-full object-cover aspect-square"
-              alt={`${name}'s profile picture`} // More descriptive alt text
+              alt={`${author?.name}'s profile picture`} // More descriptive alt text
               priority={false} // Optional: set to true if above the fold
             />
           </Link>
@@ -71,7 +75,7 @@ const StartUpCardConponent = ({ post }: { post: StartUpCardConponentType }) => {
         />
         <div className="flex justify-between items-center mt-5 gap-3">
           {/* button info */}
-          <Link href={`query=${category.toLowerCase()}`}>
+          <Link href={`query=${category?.toLowerCase()}`}>
             <span className="text-[16px] font-medium text-black">
               {category}
             </span>

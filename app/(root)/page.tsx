@@ -2,7 +2,10 @@ import { RssIcon } from "lucide-react";
 import Image from "next/image";
 import SearchComponentPage from "../../components/SearchComponent";
 import { describe } from "node:test";
-import StartUpCardConponent from "@/components/StartUpCardConponent";
+import StartUpCardConponent, { StartUpCardConponentType } from "@/components/StartUpCardConponent";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { json } from "stream/consumers";
 
 //method 1
 // interface SearchParams{
@@ -21,51 +24,7 @@ import StartUpCardConponent from "@/components/StartUpCardConponent";
 
 export default async function Home ({searchParams}:{ searchParams : Promise<{query? : string}>}) {
   const query = (await searchParams).query;
-  const posts = [
-    {
-      _createdAt: new Date(),
-      views : 55,
-      author: {id:1, name:'Naruto'},
-      _id : 1,
-      description: "This is a description",
-      image: "https://i.ebayimg.com/images/g/6h8AAOSwwjBkK-uu/s-l1200.jpg",
-      category: "Anime",
-      title:"Madara Uchiha"
-    },
-     {
-      _createdAt: new Date(),
-      views : 55,
-      author: {id:2, name:'Naruto'},
-      _id : 2,
-      description: "This is a description",
-      image: "https://fwmedia.fandomwire.com/wp-content/uploads/2024/12/03112618/Madara-weaves-hand-seals-to-summon-a-meteor-in-Naruto-_-Credits_-Studio-Pierrot-1024x614.jpg",
-      category: "Anime",
-      title:"Madara Uchiha"
-    }
-    ,
-     {
-      _createdAt: new Date(),
-      views : 55,
-      author: {id:3, name:'Naruto'},
-      _id : 3,
-      description: "This is a description",
-      image: "https://mir-s3-cdn-cf.behance.net/projects/404/e26dc4217746411.Y3JvcCw3NzksNjA5LDE1MCwzNzA.jpg",
-      category: "Anime",
-      title:"Madara Uchiha"
-    }
-    ,
-     {
-      _createdAt: new Date(),
-      views : 55,
-      author: {id:4, name:'Naruto'},
-      _id : 4,
-      description: "This is a description",
-      image: "https://dthezntil550i.cloudfront.net/h7/latest/h72304041141310600022131658/1280_960/874ad52d-ba76-4857-a5af-48b94733e636.png",
-      category: "Anime",
-      title:"Madara Uchiha"
-    }
-  ]
-  
+  const posts = await client.fetch(STARTUPS_QUERY)
   return (
    <>
    <section className="bg-primary min-h-[540px] pattern flex justify-center items-center flex-col py-10 px-6 ">
