@@ -1,7 +1,17 @@
 import { defineQuery } from "next-sanity";
 
 // queries/startups.ts or similar
-export const STARTUPS_QUERY = `*[_type == "startup" && defined(slug.current)] | order(_createdAt desc) {
+// queries/startups.ts
+export const STARTUPS_QUERY = `*[
+  _type == "startup" &&
+  defined(slug.current) &&
+  (
+    !defined($search) ||
+    title match $search ||
+    category match $search ||
+    author->name match $search
+  )
+] | order(_createdAt desc) {
   _id, 
   title,
   slug, 

@@ -51,7 +51,7 @@ const StartUpCardConponent = ({ post }: { post: StartUpCardConponentType }) => {
           <Link href={`/user/${author?._id}`}>
             {/* profile */}
             <Image
-              src={image} // Note: Corrected "×" to "x" in dimensions
+              src={author?.image} // Note: Corrected "×" to "x" in dimensions
               width={48}
               height={48}
               className="rounded-full object-cover aspect-square"

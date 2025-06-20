@@ -6,6 +6,7 @@ import StartUpCardConponent, { StartUpCardConponentType } from "@/components/Sta
 import { client } from "@/sanity/lib/client";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 import { json } from "stream/consumers";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 
 //method 1
 // interface SearchParams{
@@ -23,8 +24,10 @@ import { json } from "stream/consumers";
 // const query = (await searchParams).query;
 
 export default async function Home ({searchParams}:{ searchParams : Promise<{query? : string}>}) {
-  const query = (await searchParams).query;
-  const posts = await client.fetch(STARTUPS_QUERY)
+  const query = (await searchParams).query || "";
+  const params = {search: query || null};
+  const {data : posts} = await sanityFetch({query: STARTUPS_QUERY, params})
+
   return (
    <>
    <section className="bg-primary min-h-[540px] pattern flex justify-center items-center flex-col py-10 px-6 ">
@@ -56,6 +59,8 @@ export default async function Home ({searchParams}:{ searchParams : Promise<{que
 
     </ul>
    </section>
+
+   <SanityLive/>
 
    </>
   );
