@@ -65,6 +65,31 @@
         background-position: center;
         background-repeat: repeat-x;
     }
+    .tage-tri {
+        position: relative; /* Added to position pseudo-elements correctly */
+    }
+
+    .tage-tri::before {
+        content: '';
+        position: absolute;
+        top: 0.5rem; /* 8px */
+        left: 0.5rem; /* 8px */
+        border-top-width: 10px;
+        border-top-color: black;
+        border-right-width: 10px;
+        border-right-color: transparent;
+    }
+
+    .tage-tri::after {
+        content: '';
+        position: absolute;
+        bottom: 0.5rem; /* 8px */
+        right: 0.5rem; /* 8px */
+        border-bottom-width: 10px;
+        border-bottom-color: black;
+        border-left-width: 10px;
+        border-left-color: transparent;
+    }
 }
 
 
